@@ -1,0 +1,23 @@
+  
+{
+  "builders": [
+    {
+      "type": "googlecompute",
+      "account_file": "packer-account.json",
+      "project_id": "fintepsolutions",
+      "source_image": "ubuntu-1604-xenial-v20191217",
+      "ssh_username": "packer",
+      "zone": "europe-west3-a"
+    }
+  ],
+  "provisioners": [{
+    "type": "shell",
+    "inline": [
+      "sleep 30",
+      "sudo apt install software-properties-common",
+      "sudo add-apt-repository ppa:gluster/glusterfs-7",
+      "sudo apt update",
+      "sudo apt install -y glusterfs-server"
+    ]
+  }]
+}
