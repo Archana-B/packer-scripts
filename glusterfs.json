@@ -35,6 +35,7 @@
       "sudo mkdir -p /mnt/gluster/finvol",
       "sudo gluster volume create finvol transport tcp packer-gluster:/mnt/gluster/finvol force",
       "sudo gluster volume start finvol",
+      "sudo apt-get install -y glusterfs-client",
       "sudo mkdir -p /mnt/glusterfs",
       "sudo mount -t glusterfs packer-gluster:/finvol /mnt/glusterfs"
     ]
