@@ -1,10 +1,14 @@
   
 {
+  "variables": {
+    "account_file": "{{env `ACCOUNT_FILE_NAME`}}",
+    "project_id": "{{env `PROJECT_ID`}}"
+  },
   "builders": [
     {
       "type": "googlecompute",
-      "account_file": "packer-account.json",
-      "project_id": "fintepsolutions",
+      "account_file": "{{user `account_file`}}",
+      "project_id": "{{user `project_id`}}",
       "source_image": "ubuntu-1604-xenial-v20191217",
       "ssh_username": "packer",
       "zone": "europe-west3-a"
