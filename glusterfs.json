@@ -9,20 +9,22 @@
       "type": "googlecompute",
       "account_file": "{{user `account_file`}}",
       "project_id": "{{user `project_id`}}",
-      "source_image": "ubuntu-1604-xenial-v20191217",
+      "source_image": "debian-10-buster-v20191210",
       "ssh_username": "packer",
-      "zone": "europe-west3-a"
+      "zone": "europe-west3-a",
+      "preemptible": true
     }
   ],
   "provisioners": [{
     "type": "shell",
     "inline": [
       "sleep 30",
-      "sudo apt install software-properties-common",
-      "sudo add-apt-repository ppa:gluster/glusterfs-7",
-      "sudo apt update",
-      "sudo apt install -y glusterfs-server",
-      "sudo systemctl enable glusterd"
+      "sudo apt-get update -y",
+      "sudo apt-get install -y wget",
+      "wget -O - https://download.gluster.org/pub/gluster/glusterfs/7/rsa.pub | sudo apt-key add -",
+      "echo deb [arch=amd64] https://download.gluster.org/pub/gluster/glusterfs/7/LATEST/Debian/buster/amd64/apt buster main | sudo tee /etc/apt/sources.list.d/gluster.list",
+      "sudo apt-get install -y glusterfs-server",
+      "sudo systemctl start glusterd.service"
     ]
   }]
 }
